@@ -1,0 +1,2 @@
+# Redirect www to apex (adjust if you prefer www as canonical)
+https://www.blockaide.org/* https://blockaide.org/:splat 301
