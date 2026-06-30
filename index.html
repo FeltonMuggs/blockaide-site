@@ -317,7 +317,7 @@
       <div class="pillar reveal"><div class="ico">🔗</div><h3>Web3 & Digital Payments</h3><p>Wallets, stablecoins and direct-to-market sales so producers keep more of every dollar.</p></div>
       <div class="pillar reveal"><div class="ico">🧠</div><h3>Applied AI</h3><p>Practical AI for yields, weather, logistics and small-business operations — no PhD required.</p></div>
       <div class="pillar reveal"><div class="ico">🛡️</div><h3>Blockchain & Provenance</h3><p>Trust and traceability from the oyster bed to the buyer — proving origin and quality on-chain.</p></div>
-      <div class="pillar reveal"><div class="ico">🤖</div><h3>Robotics & Automation</h3><p>Drones, sensors and automation that ease hard labor and keep family operations competitive.</p></div>
+      <div class="pillar reveal" role="button" tabindex="0" data-open-video data-yt="e0fynj6UtSg" aria-label="Watch the Robotics & Automation video" style="cursor:pointer"><div class="ico">🤖</div><h3>Robotics & Automation</h3><p>Drones, sensors and automation that ease hard labor and keep family operations competitive.</p><p style="margin-top:.6rem;color:var(--seafoam);font-weight:600">▶ Watch the video</p></div>
     </div>
   </div>
 </section>
@@ -492,7 +492,7 @@
     const cl=document.getElementById('introClose');
     if(!lb||!fr||!cl) return;
     let last=null;
-    function open(t){last=t;fr.src=EMBED;lb.hidden=false;cl.focus();}
+    function open(t){last=t;const id=t&&t.getAttribute&&t.getAttribute('data-yt');fr.src=id?("https://www.youtube.com/embed/"+id+"?autoplay=1&rel=0&modestbranding=1"):EMBED;lb.hidden=false;cl.focus();}
     function close(){fr.src="";lb.hidden=true;if(last&&last.focus)last.focus();}
     document.querySelectorAll('[data-open-video]').forEach(el=>{
       el.addEventListener('click',()=>open(el));
