@@ -213,6 +213,24 @@
     .reveal{opacity:1;transform:none}
     .join-stage{height:100vh}
   }
+
+  /* --- Intro video lightbox (logo + badge trigger) --- */
+  .crest-assembly{cursor:pointer}
+  .crest-play{position:absolute;left:50%;top:50%;width:74px;height:74px;margin:-37px 0 0 -37px;border-radius:50%;background:rgba(43,71,80,.5);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s, transform .25s;z-index:4;pointer-events:none}
+  .crest-play::after{content:"";width:0;height:0;margin-left:5px;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent #fff}
+  .crest-assembly:hover .crest-play,.crest-assembly:focus-visible .crest-play{opacity:1;transform:scale(1.06)}
+  .crest-assembly:focus-visible{outline:3px solid var(--gold);outline-offset:8px;border-radius:50%}
+  .join-badge[role=button]{cursor:pointer;transition:background .2s,border-color .2s}
+  .join-badge[role=button]:hover,.join-badge[role=button]:focus-visible{background:rgba(255,255,255,.92);border-color:var(--gold)}
+  .join-badge:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  .join-badge .watch{color:var(--sage-deep);font-weight:800;white-space:nowrap}
+  .bavid-lb[hidden]{display:none}
+  .bavid-lb{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(20,28,31,.86);backdrop-filter:blur(4px)}
+  .bavid-frame{position:relative;width:min(960px,100%);border-radius:14px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .bavid-ratio{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+  .bavid-ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .bavid-close{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;font-size:22px;line-height:1;color:var(--ink-2);background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+  .bavid-close:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -238,12 +256,13 @@
   <div class="join-sticky">
     <canvas id="depthcanvas" aria-hidden="true"></canvas>
     <div class="join-inner">
-      <span class="join-badge"><span class="dot"></span> Nonprofit · Northern Neck Heritage Area · VA · MD · DC</span>
+      <span class="join-badge" role="button" tabindex="0" data-open-video aria-label="Play the BlockAide Union intro video"><span class="dot"></span> Nonprofit · Northern Neck Heritage Area · VA · MD · DC <span class="watch">▶ Watch</span></span>
       <h1 class="join-title">Where the <span class="accent">old ground</span> meets the <span class="accent2">new economy</span>.</h1>
-      <div class="crest-assembly" id="crestAssembly">
+      <div class="crest-assembly" id="crestAssembly" role="button" tabindex="0" data-open-video aria-label="Play the BlockAide Union intro video">
         <div class="crest-half left" id="crestLeft"></div>
         <div class="crest-half right" id="crestRight"></div>
         <div class="crest-spark" id="crestSpark" aria-hidden="true"></div>
+        <span class="crest-play" aria-hidden="true"></span>
       </div>
       <p class="join-cue" id="joinCue"><span class="arrow">↓</span> Scroll to join the chain</p>
     </div>
@@ -395,6 +414,13 @@
   </div>
 </footer>
 
+<div class="bavid-lb" id="introLightbox" hidden role="dialog" aria-modal="true" aria-label="BlockAide Union intro video">
+  <div class="bavid-frame">
+    <button class="bavid-close" id="introClose" aria-label="Close video">&times;</button>
+    <div class="bavid-ratio"><iframe id="introVideo" title="BlockAide Union Smart Rural Workforce intro video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  </div>
+</div>
+
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -456,6 +482,25 @@
     c.addEventListener('pointermove',ev=>{const r=c.getBoundingClientRect();mouse.x=(ev.clientX-r.left)*devicePixelRatio;mouse.y=(ev.clientY-r.top)*devicePixelRatio;});
     c.addEventListener('pointerleave',()=>{mouse.x=mouse.y=-999;});
     size();draw();
+  })();
+
+  // Intro video lightbox — opened by the crest logo and the heritage badge
+  (function(){
+    const EMBED="https://www.youtube.com/embed/pd-90tzxOzM?autoplay=1&rel=0&modestbranding=1";
+    const lb=document.getElementById('introLightbox');
+    const fr=document.getElementById('introVideo');
+    const cl=document.getElementById('introClose');
+    if(!lb||!fr||!cl) return;
+    let last=null;
+    function open(t){last=t;fr.src=EMBED;lb.hidden=false;cl.focus();}
+    function close(){fr.src="";lb.hidden=true;if(last&&last.focus)last.focus();}
+    document.querySelectorAll('[data-open-video]').forEach(el=>{
+      el.addEventListener('click',()=>open(el));
+      el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(el);}});
+    });
+    cl.addEventListener('click',close);
+    lb.addEventListener('click',e=>{if(e.target===lb)close();});
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden)close();});
   })();
 </script>
 </body>
