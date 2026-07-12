@@ -351,7 +351,7 @@
     }).render('#paypal-buttons');
   }
   const sdk = document.createElement('script');
-  sdk.src = 'https://www.paypal.com/sdk/js?client-id=AAm6mk5JdvupIcZP1o1NGc-ogO_P0xl8l900tJDgPDpZSiJzSCA_MteM__Es6rKAibEP1ssQzC48YW87Y&currency=USD&intent=capture&disable-funding=paylater';
+  sdk.src = 'https://www.paypal.com/sdk/js?client-id=BAAm6mk5JdvupIcZP1o1NGc-ogO_P0xl8l900tJDgPDpZSiJzSCA_MteM__Es6rKAibEP1ssQzC48YW87Y&currency=USD&intent=capture&disable-funding=paylater';
   sdk.onload = initPayPal;
   sdk.onerror = ()=> document.getElementById('ppFallback').classList.add('show');
   document.head.appendChild(sdk);
