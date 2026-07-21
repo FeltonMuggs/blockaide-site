@@ -1,9 +1,6 @@
 # Redirect www to apex (adjust if you prefer www as canonical)
 https://www.blockaide.org/* https://blockaide.org/:splat 301
 
-# Oyster provenance verifier (served by provenance.html)
-/provenance /provenance.html 200
-
 # Sponsor tier signup routes (all served by sponsor.html)
 /sponsor-friend /sponsor.html 200
 /sponsor-waterman /sponsor.html 200
