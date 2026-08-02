@@ -193,7 +193,7 @@
         <label>Anything else? (goals, event interests, in-kind offers)</label>
         <textarea id="f_notes" rows="3" placeholder="Optional"></textarea>
       </form>
-      <p class="hint" style="margin-bottom:0">Have a logo? You'll be able to email it right after payment — or send it anytime to <b>everett@cloudcontrolllc.com</b>.</p>
+      <p class="hint" style="margin-bottom:0">Have a logo? You'll be able to email it right after payment — or send it anytime to <b>info@blockaide.org</b>.</p>
     </div>
 
     <div>
@@ -203,7 +203,7 @@
         <ul class="benefits" id="tierBenefits"></ul>
         <p class="hint" style="margin-top:.9rem">Pay securely with PayPal — card, bank or PayPal balance. Annual sponsorship.</p>
         <div id="paypal-buttons"></div>
-        <div class="pp-fallback" id="ppFallback">PayPal checkout couldn't load (this can happen with ad-blockers). No problem — use the check or invoice options below, or email <b>everett@cloudcontrolllc.com</b>.</div>
+        <div class="pp-fallback" id="ppFallback">PayPal checkout couldn't load (this can happen with ad-blockers). No problem — use the check or invoice options below, or email <b>info@blockaide.org</b>.</div>
         <p class="secure">🔒 Processed by PayPal. BlockAide Union never sees or stores your card or bank details.</p>
       </div>
 
@@ -225,10 +225,10 @@
 <footer>
   <div class="wrap">
     <div class="foot-links">
-      <a href="/">Home</a><a href="/partner">Partner / Sponsor</a><a href="/#give">Donate</a><a href="mailto:everett@cloudcontrolllc.com">Email Us</a>
+      <a href="/">Home</a><a href="/partner">Partner / Sponsor</a><a href="/#give">Donate</a><a href="mailto:info@blockaide.org">Email Us</a>
     </div>
     <div class="legal">
-      <strong>BlockAide Union</strong> is a Virginia nonprofit organized under Section <strong>501(c)(5)</strong> of the Internal Revenue Code (EIN 41-3413941). Contributions to a 501(c)(5) organization are <strong>not tax-deductible as charitable donations</strong>; sponsorship payments may be deductible as an ordinary business expense (such as advertising or marketing). Please consult your tax advisor regarding your specific situation. Sponsorships are annual. Questions or refunds: everett@cloudcontrolllc.com. &nbsp;·&nbsp; © <span id="yr">2026</span> BlockAide Union. All rights reserved.
+      <strong>BlockAide Union</strong> is a Virginia nonprofit organized under Section <strong>501(c)(5)</strong> of the Internal Revenue Code (EIN 41-3413941). Contributions to a 501(c)(5) organization are <strong>not tax-deductible as charitable donations</strong>; sponsorship payments may be deductible as an ordinary business expense (such as advertising or marketing). Please consult your tax advisor regarding your specific situation. Sponsorships are annual. Questions or refunds: info@blockaide.org. &nbsp;·&nbsp; © <span id="yr">2026</span> BlockAide Union. All rights reserved.
     </div>
   </div>
 </footer>
@@ -296,7 +296,7 @@
   }
   function mailtoHref(txId){
     const subj = (txId?'New sponsor (PAID): ':'Sponsorship request: ') + val('f_org') + ' — ' + tier.name;
-    return 'mailto:everett@cloudcontrolllc.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(detailsBlock(txId));
+    return 'mailto:info@blockaide.org?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(detailsBlock(txId));
   }
 
   // Optional form service (e.g. Web3Forms): set FORM_ENDPOINT and FORM_KEY once an account exists,
