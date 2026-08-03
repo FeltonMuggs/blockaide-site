@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) — GA4 property "BlockAide Union - blockaide.org" -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7E30JBCN2G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7E30JBCN2G');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Become a Sponsor — BlockAide Union</title>
@@ -317,6 +326,21 @@
 
   // ---- PayPal Smart Buttons ----
   function onPaid(txId){
+    // GA4: real revenue event for on-site PayPal sponsorship checkout
+    if (typeof gtag === 'function') {
+      gtag('event', 'purchase', {
+        transaction_id: txId,
+        value: tier.amount,
+        currency: 'USD',
+        items: [{
+          item_id: 'sponsor_' + tierKey,
+          item_name: tier.name + ' (annual sponsorship)',
+          item_category: 'sponsorship',
+          price: tier.amount,
+          quantity: 1
+        }]
+      });
+    }
     postForm(txId);
     $('txLine').textContent = 'PayPal transaction ID: ' + txId;
     $('successEmail').href = mailtoHref(txId);
@@ -349,6 +373,13 @@
       },
       onError(err){ $('ppFallback').classList.add('show'); }
     }).render('#paypal-buttons');
+    if (typeof gtag === 'function') {
+      gtag('event', 'begin_checkout', {
+        value: tier.amount,
+        currency: 'USD',
+        items: [{ item_id: 'sponsor_' + tierKey, item_name: tier.name, price: tier.amount, quantity: 1 }]
+      });
+    }
   }
   const sdk = document.createElement('script');
   sdk.src = 'https://www.paypal.com/sdk/js?client-id=BAAm6mk5JdvupIcZP1o1NGc-ogO_P0xl8l900tJDgPDpZSiJzSCA_MteM__Es6rKAibEP1ssQzC48YW87Y&currency=USD&intent=capture&disable-funding=paylater';

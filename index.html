@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) — GA4 property "BlockAide Union - blockaide.org" -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7E30JBCN2G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7E30JBCN2G');
+</script>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>BlockAide Union — Building the Smart Workforce for Rural America</title>
@@ -541,5 +550,45 @@
     addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden)close();});
   })();
 </script>
+
+<!-- GA4 donation-funnel events (named events are easier to mark as Key events than raw outbound clicks) -->
+<script>
+(function(){
+  function send(name, params){
+    if (typeof gtag === 'function') gtag('event', name, params || {});
+  }
+  var routes = [
+    { id: 'link-gofundme', method: 'gofundme' },
+    { id: 'link-paypal',   method: 'paypal'   }
+  ];
+  routes.forEach(function(r){
+    var el = document.getElementById(r.id);
+    if (!el) return;
+    el.addEventListener('click', function(){
+      send('donate_click', {
+        donate_method: r.method,
+        link_url: el.href,
+        page_location: location.href
+      });
+    });
+  });
+  // Fires when the donation block actually enters the viewport, so
+  // donate_click / donate_view gives a true click-through rate.
+  var give = document.getElementById('give');
+  if (give && 'IntersectionObserver' in window) {
+    var seen = false;
+    new IntersectionObserver(function(entries, obs){
+      entries.forEach(function(e){
+        if (e.isIntersecting && !seen) {
+          seen = true;
+          send('donate_view', { page_location: location.href });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.4 }).observe(give);
+  }
+})();
+</script>
+
 </body>
 </html>
